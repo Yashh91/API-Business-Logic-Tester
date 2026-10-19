@@ -143,6 +143,66 @@ python -m pip install -r requirements.txt
 python -m pip install -e ".[dev]"
 ```
 
+## Test Your Own API
+
+You can configure the tool to test an API you own or are explicitly authorized to assess.
+
+### Create an API Profile
+
+```bash
+nano profiles/my_api.yaml
+```
+
+Example configuration:
+
+```yaml
+target:
+  name: "My Test API"
+  base_url: "https://api.example.com"
+
+auth:
+  type: "none"
+
+settings:
+  timeout_seconds: 10
+  verify_tls: true
+
+checks:
+  - authorization
+  - input_validation
+
+scenarios:
+  - scenario_id: "AUTH-001"
+    name: "Protected endpoint access"
+    description: "Check the configured endpoint response."
+    check_type: "authorization"
+    request_method: "GET"
+    request_path: "/api/profile"
+    expected_status_codes:
+      - 401
+      - 403
+```
+
+Replace the example URL and endpoint with those from your authorized test environment.
+
+### Configure Authentication
+
+For an API that uses bearer-token authentication, configure the profile:
+
+```yaml
+auth:
+  type: "bearer"
+  token_env: "API_TOKEN"
+```
+
+Set the token as an environment variable:
+
+```bash
+export API_TOKEN="your_authorized_test_token"
+```
+
+Never commit real API credentials to GitHub.
+
 ## Validate a Configuration
 
 ```bash
@@ -150,20 +210,6 @@ python -m api_tester.cli --config profiles/example_api.yaml
 ```
 
 This validates the profile without sending API requests.
-
-## Discover Documented Endpoints
-
-Place an authorized OpenAPI JSON or YAML specification in a local file, then run:
-
-```bash
-python -m api_tester.cli --config profiles/example_api.yaml --openapi openapi.json --list-endpoints
-```
-
-To export the endpoint inventory:
-
-```bash
-python -m api_tester.cli --config profiles/example_api.yaml --openapi openapi.json --list-endpoints --output reports/endpoints.json
-```
 
 ## Run Configured Scenarios
 
@@ -187,6 +233,20 @@ Reports are written by default to:
 - `reports/report.md`
 
 The current runner executes authorization-response and input-validation scenarios. Other evaluators still need runner integration.
+
+## Discover Documented Endpoints
+
+Place an authorized OpenAPI JSON or YAML specification in a local file, then run:
+
+```bash
+python -m api_tester.cli --config profiles/example_api.yaml --openapi openapi.json --list-endpoints
+```
+
+To export the endpoint inventory:
+
+```bash
+python -m api_tester.cli --config profiles/example_api.yaml --openapi openapi.json --list-endpoints --output reports/endpoints.json
+```
 
 ## Local Testing Lab
 

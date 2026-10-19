@@ -1,0 +1,67 @@
+# Example ecommerce API profile.
+# Replace example paths and test values with those from an API
+# you own or have explicit authorization to test.
+
+target:
+  name: "Ecommerce API"
+  base_url: "https://api.example.com"
+
+auth:
+  type: "bearer"
+  token_env: "ECOMMERCE_API_TOKEN"
+
+settings:
+  timeout_seconds: 10
+  verify_tls: true
+
+checks:
+  - authorization
+  - resource_ownership
+  - input_validation
+  - duplicate_actions
+  - state_transitions
+
+scenarios:
+  - scenario_id: "SHOP-AUTH-001"
+    name: "Order access control"
+    description: "Verify that users cannot access another user's order."
+    check_type: "authorization"
+    request_method: "GET"
+    request_path: "/api/orders/{order_id}"
+    expected_status_codes:
+      - 401
+      - 403
+
+  - scenario_id: "SHOP-OWNER-001"
+    name: "Order ownership verification"
+    description: "Verify that an order belongs to the authenticated test user."
+    check_type: "resource_ownership"
+    request_method: "GET"
+    request_path: "/api/orders/{order_id}"
+
+  - scenario_id: "SHOP-INPUT-001"
+    name: "Quantity validation"
+    description: "Check whether invalid order quantities are rejected."
+    check_type: "input_validation"
+    request_method: "POST"
+    request_path: "/api/orders"
+    request_body:
+      product_id: "TEST_PRODUCT_ID"
+      quantity: -1
+
+  - scenario_id: "SHOP-DUP-001"
+    name: "Repeated order submission"
+    description: "Investigate whether repeated submissions create unintended duplicate orders."
+    check_type: "duplicate_actions"
+    request_method: "POST"
+    request_path: "/api/orders"
+    request_body:
+      product_id: "TEST_PRODUCT_ID"
+      quantity: 1
+
+  - scenario_id: "SHOP-STATE-001"
+    name: "Cancelled order workflow"
+    description: "Verify that a cancelled order cannot proceed to shipment."
+    check_type: "state_transitions"
+    request_method: "POST"
+    request_path: "/api/orders/{order_id}/ship"

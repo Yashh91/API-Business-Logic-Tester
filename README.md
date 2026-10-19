@@ -1,6 +1,6 @@
 <div align="center">
 
-# API Business Logic Tester
+# API-Business-Logic-Tester
 
 ### A Python framework for testing API business logic using configurable scenarios, structured evidence, and security assessment reports.
 
@@ -32,7 +32,7 @@
 
 ---
 
-# API Business Logic Tester
+# API-Business-Logic-Tester
 
 A Python framework for testing API business logic using configurable scenarios, structured evidence, and security assessment reports.
 

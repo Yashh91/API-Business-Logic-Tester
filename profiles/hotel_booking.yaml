@@ -1,0 +1,69 @@
+
+# Example hotel booking API profile.
+# Use only with systems you own or are authorized to test.
+
+target:
+  name: "Hotel Booking API"
+  base_url: "https://api.example.com"
+
+auth:
+  type: "bearer"
+  token_env: "HOTEL_API_TOKEN"
+
+settings:
+  timeout_seconds: 10
+  verify_tls: true
+
+checks:
+  - authorization
+  - resource_ownership
+  - input_validation
+  - duplicate_actions
+  - state_transitions
+
+scenarios:
+  - scenario_id: "HOTEL-AUTH-001"
+    name: "Reservation access control"
+    description: "Verify that a user cannot access another user's reservation."
+    check_type: "authorization"
+    request_method: "GET"
+    request_path: "/api/reservations/{reservation_id}"
+    expected_status_codes:
+      - 401
+      - 403
+
+  - scenario_id: "HOTEL-OWNER-001"
+    name: "Reservation ownership"
+    description: "Verify that the reservation belongs to the authenticated test user."
+    check_type: "resource_ownership"
+    request_method: "GET"
+    request_path: "/api/reservations/{reservation_id}"
+
+  - scenario_id: "HOTEL-INPUT-001"
+    name: "Date range validation"
+    description: "Check that invalid reservation date ranges are rejected."
+    check_type: "input_validation"
+    request_method: "POST"
+    request_path: "/api/reservations"
+    request_body:
+      room_id: "TEST_ROOM_ID"
+      check_in: "2030-08-20"
+      check_out: "2030-08-18"
+
+  - scenario_id: "HOTEL-DUP-001"
+    name: "Repeated reservation submission"
+    description: "Investigate whether repeating a reservation action creates an unintended duplicate."
+    check_type: "duplicate_actions"
+    request_method: "POST"
+    request_path: "/api/reservations"
+    request_body:
+      room_id: "TEST_ROOM_ID"
+      check_in: "2030-08-20"
+      check_out: "2030-08-22"
+
+  - scenario_id: "HOTEL-STATE-001"
+    name: "Cancelled reservation workflow"
+    description: "Verify that a cancelled reservation cannot be checked in."
+    check_type: "state_transitions"
+    request_method: "POST"
+    request_path: "/api/reservations/{reservation_id}/check-in"

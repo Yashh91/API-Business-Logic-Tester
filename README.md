@@ -6,12 +6,14 @@
 
 **Uncover vulnerabilities across authorization behavior, input validation, resource ownership, duplicate actions, and state transitions.**
 
-<!-- Centered Badge Bar -->
-![](https://shields.io)
-![](https://shields.io)
-![](https://shields.io)
-![](https://shields.io)
-![](https://shields.io)
+<!-- Tech Stack & Metadata Badges -->
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![HTTPX](https://img.shields.io/badge/HTTPX-API_Testing-5E5E5E?style=flat-square)](https://www.python-httpx.org/)
+[![Flask](https://img.shields.io/badge/Flask-Local_Test_Lab-000000?style=flat-square&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![OpenAPI](https://img.shields.io/badge/OpenAPI-3.x-6BA539?style=flat-square&logo=openapiinitiative&logoColor=white)](https://www.openapis.org/)
+[![Pytest](https://img.shields.io/badge/Tests-Pytest-0A9EDC?style=flat-square&logo=pytest&logoColor=white)](https://pytest.org/)
+[![YAML](https://img.shields.io/badge/Config-YAML-CB171E?style=flat-square&logo=yaml&logoColor=white)](https://yaml.org/)
+[![License](https://img.shields.io/badge/License-MIT-F4C430?style=flat-square)](LICENSE)
 
 <p>
   <a href="#key-features">Key Features</a> •
@@ -31,6 +33,7 @@
 </div>
 
 ---
+
 
 # API-Business-Logic-Tester
 

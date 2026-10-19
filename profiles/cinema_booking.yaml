@@ -1,0 +1,63 @@
+
+# Example cinema booking API profile.
+# Replace the base URL and paths with documented endpoints
+# from an API you own or are authorized to test.
+
+target:
+  name: "Cinema Booking API"
+  base_url: "https://api.example.com"
+
+auth:
+  type: "bearer"
+  token_env: "CINEMA_API_TOKEN"
+
+settings:
+  timeout_seconds: 10
+  verify_tls: true
+
+checks:
+  - authorization
+  - duplicate_actions
+  - state_transitions
+  - resource_ownership
+  - input_validation
+
+scenarios:
+  - scenario_id: "CINEMA-AUTH-001"
+    name: "Booking access control"
+    description: "Verify that users cannot access another user's booking."
+    check_type: "authorization"
+    request_method: "GET"
+    request_path: "/api/bookings/{booking_id}"
+    expected_status_codes:
+      - 401
+      - 403
+
+  - scenario_id: "CINEMA-DUP-001"
+    name: "Repeated booking submission"
+    description: "Investigate whether repeating a booking action creates an unintended duplicate."
+    check_type: "duplicate_actions"
+    request_method: "POST"
+    request_path: "/api/bookings"
+    request_body:
+      show_id: "TEST_SHOW_ID"
+      seat_ids:
+        - "TEST_SEAT_ID"
+
+  - scenario_id: "CINEMA-STATE-001"
+    name: "Booking state transition"
+    description: "Verify that cancelled bookings cannot be confirmed again."
+    check_type: "state_transitions"
+    request_method: "POST"
+    request_path: "/api/bookings/{booking_id}/confirm"
+
+  - scenario_id: "CINEMA-INPUT-001"
+    name: "Seat selection validation"
+    description: "Verify that unavailable or invalid seats are rejected."
+    check_type: "input_validation"
+    request_method: "POST"
+    request_path: "/api/bookings"
+    request_body:
+      show_id: "TEST_SHOW_ID"
+      seat_ids:
+        - "INVALID_TEST_SEAT"

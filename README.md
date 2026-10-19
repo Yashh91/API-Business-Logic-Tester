@@ -1,3 +1,36 @@
+<div align="center">
+
+# API Business Logic Tester
+
+### A Python framework for testing API business logic using configurable scenarios, structured evidence, and security assessment reports.
+
+**Uncover vulnerabilities across authorization behavior, input validation, resource ownership, duplicate actions, and state transitions.**
+
+<!-- Centered Badge Bar -->
+![](https://shields.io)
+![](https://shields.io)
+![](https://shields.io)
+![](https://shields.io)
+![](https://shields.io)
+
+<p>
+  <a href="#key-features">Key Features</a> •
+  <a href="#architecture">Architecture</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#documentation">Documentation</a>
+</p>
+
+---
+
+<p>
+  <sub>Get started right away by validating your target API configuration profiles:</sub>
+  <br />
+  <code>python -m api_tester.cli --config profiles/example_api.yaml</code>
+</p>
+
+</div>
+
+---
 
 # API Business Logic Tester
 

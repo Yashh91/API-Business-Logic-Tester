@@ -1,3 +1,7 @@
+🌐 [English](README.md) • [简体中文](docs/localization/README.zh-CN.md) • [繁體中文](docs/localization/README.zh-TW.md) • [日本語](docs/localization/README.ja.md) • [한국어](docs/localization/README.ko.md) • [Русский](docs/localization/README.ru.md) • [Español](docs/localization/README.es.md) • [Français](docs/localization/README.fr.md) • [Português](docs/localization/README.pt-BR.md) • [Deutsch](docs/localization/README.de.md)
+
+---
+
 <div align="center">
 
 # API-Business-Logic-Tester

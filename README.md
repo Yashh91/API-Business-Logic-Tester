@@ -35,8 +35,6 @@
 ---
 
 
-# API-Business-Logic-Tester
-
 A Python framework for testing API business logic using configurable scenarios, structured evidence, and security assessment reports.
 
 The project focuses on authorization behavior, input validation, resource ownership, duplicate actions, and workflow state transitions. It also includes a local Flask lab with synthetic data for controlled practice.

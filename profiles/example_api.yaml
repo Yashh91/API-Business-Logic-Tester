@@ -1,0 +1,44 @@
+
+# Example profile for API Business Logic Tester.
+# Use only against systems you own or are authorized to test.
+
+target:
+  name: "Example REST API"
+  base_url: "https://api.example.com"
+
+auth:
+  type: "none"
+
+settings:
+  timeout_seconds: 10
+  verify_tls: true
+
+checks:
+  - authorization
+  - input_validation
+  - duplicate_actions
+  - state_transitions
+  - resource_ownership
+
+scenarios:
+  - scenario_id: "AUTH-001"
+    name: "Protected resource access"
+    description: "Verify that protected resources require authorization."
+    check_type: "authorization"
+    request_method: "GET"
+    request_path: "/api/profile"
+    expected_status_codes:
+      - 401
+      - 403
+
+  - scenario_id: "INPUT-001"
+    name: "Invalid quantity validation"
+    description: "Verify that invalid quantities are rejected."
+    check_type: "input_validation"
+    request_method: "POST"
+    request_path: "/api/orders"
+    expected_status_codes:
+      - 400
+      - 422
+    request_body:
+      quantity: -1
